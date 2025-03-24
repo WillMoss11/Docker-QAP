@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.7</version> <!-- You can use the latest stable version -->
+        <version>3.0.0</version> <!-- Stable Spring Boot Version -->
         <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
@@ -64,7 +64,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.1</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>23</source>
+                    <target>23</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <jvmArguments>-java.util.concurrent.ForkJoinPool.common.parallelism=4</jvmArguments>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
+
+
