@@ -8,5 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/api/tournaments")
 public class TournamentController {
+
+    @Autowired
+    private TournamentRepository tournamentRepository;
+
+    //To Create new tournament
+    @PostMapping
+    public Tournament createTournament(@RequestBody Tournament tournament) {
+        return tournamentRepository.save(tournament);
+    }
 }
