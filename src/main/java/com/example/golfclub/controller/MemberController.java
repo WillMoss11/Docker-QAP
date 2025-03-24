@@ -24,4 +24,10 @@ public class MemberController {
     public Member addMember(@RequestBody Member member) {
         return memberService.saveMember(member);
     }
+
+    // End for getting all members
+    @GetMapping
+    public List<Member> getAllMembers() {
+        return memberService.getAllMembers();
+    }
 }
