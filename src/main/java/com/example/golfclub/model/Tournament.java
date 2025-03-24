@@ -14,7 +14,7 @@ public class Tournament {
     private LocalDate endDate;
     private String location;
     private double entryFee;
-    private double cashPrizeAmmount;
+    private double cashPrizeAmount;
 
     @ManyToMany
     @JoinTable(
