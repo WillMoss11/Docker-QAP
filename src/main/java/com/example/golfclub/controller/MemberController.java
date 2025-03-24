@@ -4,6 +4,7 @@ import com.example.golfclub.model.Member;
 import com.example.golfclub.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.golfclub.repository.MemberRepository;
 
 import java.util.List;
 
@@ -13,6 +14,15 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    // Search members by name
+    @GetMapping("/search")
+    public List<Member> searchMembersByName(@RequestParam String name) {
+        return memberRepository.findByNameContaining(name);
+    }
 
     @Autowired
     public MemberController(MemberService memberService) {
