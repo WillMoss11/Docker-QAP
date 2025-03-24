@@ -2,6 +2,8 @@ package com.example.golfclub.controller;
 
 import com.example.golfclub.model.Tournament;
 import com.example.golfclub.repository.TournamentRepository;
+import com.example.golfclub.repository.MemberRepository;
+import com.example.golfclub.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,30 @@ public class TournamentController {
 
     @Autowired
     private TournamentRepository tournamentRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    // Add members to a tournament
+    @PostMapping("/{tournamentId}/members")
+    public Tournament addMembersToTournament(@PathVariable Long tournamentId, @RequestBody List<Long> memberIds) {
+        Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+
+        // Find members by their IDs
+        List<Member> members = memberRepository.findAllById(memberIds);
+
+        // Add the members to the tournament
+        tournament.getParticipatingMembers().addAll(members);
+
+        // Save the updated tournament
+        return tournamentRepository.save(tournament);
+    }
+
+    // Search tournaments by location
+    @GetMapping("/search")
+    public List<Tournament> searchTournamentsByLocation(@RequestParam String location) {
+        return tournamentRepository.findByLocation(location);
+    }
 
     //To Create new tournament
     @PostMapping
