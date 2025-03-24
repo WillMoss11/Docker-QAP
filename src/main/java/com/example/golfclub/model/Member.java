@@ -23,7 +23,23 @@ public class Member {
     public Member() {}
 
     // Parameters
+    public Member(String name, String address, String email, String phoneNumber, String startDate, int membershipDuration) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.startDate = startDate;
+        this.membershipDuration = membershipDuration;
+    }
 
+    // Get / Set things
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
 }
