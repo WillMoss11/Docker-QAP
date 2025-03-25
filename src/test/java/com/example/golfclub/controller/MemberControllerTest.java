@@ -2,14 +2,17 @@ package com.example.golfclub.controller;
 
 import com.example.golfclub.model.Member;
 import com.example.golfclub.repository.MemberRepository;
+import com.example.golfclub.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,6 +21,9 @@ public class MemberControllerTest {
 
     @Mock
     private MemberRepository memberRepository;
+
+    @Mock
+    private MemberService memberService;
 
     @InjectMocks
     private MemberController memberController;
@@ -38,14 +44,14 @@ public class MemberControllerTest {
         member2.setId(2L);
         member2.setName("Jane Doe");
 
-        when(memberRepository.findAll()).thenReturn(Arrays.asList(member1, member2));
+        when(memberService.getAllMembers()).thenReturn(Arrays.asList(member1, member2));
 
         // When
         List<Member> members = memberController.getAllMembers();
 
         // Then
         assertEquals(2, members.size());
-        verify(memberRepository, times(1)).findAll();
+        verify(memberService, times(1)).getAllMembers();
     }
 
     @Test
@@ -58,13 +64,16 @@ public class MemberControllerTest {
         when(memberRepository.findByNameContaining("John")).thenReturn(Arrays.asList(member));
 
         // When
-        List<Member> members = memberController.getMemberByName("John");
+        List<Member> response = memberController.getMemberByName("John");
 
         // Then
-        assertEquals(1, members.size());
-        assertEquals("John Doe", members.get(0).getName());
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals("John Doe", response.get(0).getName());
         verify(memberRepository, times(1)).findByNameContaining("John");
     }
 }
+
+
 
 
