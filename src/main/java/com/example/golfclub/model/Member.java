@@ -23,7 +23,7 @@ public class Member {
     //Default start (JPA)
     public Member() {}
 
-    // Parameters
+    // Ez Parameters
     public Member(String name, String address, String email, String phoneNumber, String startDate, int membershipDuration) {
         this.name = name;
         this.address = address;

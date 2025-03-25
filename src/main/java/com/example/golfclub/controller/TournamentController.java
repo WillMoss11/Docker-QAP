@@ -3,6 +3,7 @@ package com.example.golfclub.controller;
 import com.example.golfclub.model.Tournament;
 import com.example.golfclub.repository.TournamentRepository;
 import com.example.golfclub.repository.MemberRepository;
+import com.example.golfclub.service.TournamentService;
 import com.example.golfclub.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +21,34 @@ public class TournamentController {
     @Autowired
     private MemberRepository memberRepository;
 
-    // Add members to a tournament
+    // add members to a tournament
     @PostMapping("/{tournamentId}/members")
     public Tournament addMembersToTournament(@PathVariable Long tournamentId, @RequestBody List<Long> memberIds) {
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
 
-        // Find members by their IDs
+        // find members by their IDs
         List<Member> members = memberRepository.findAllById(memberIds);
 
-        // Add the members to the tournament
+        // add the members to the tournament
         tournament.getParticipatingMembers().addAll(members);
 
-        // Save the updated tournament
+        // save the updated tournament
         return tournamentRepository.save(tournament);
     }
 
-    // Search tournaments by location
+    // search tournaments by location
     @GetMapping("/search")
     public List<Tournament> searchTournamentsByLocation(@RequestParam String location) {
-        return tournamentRepository.findByLocation(location);
+        return tournamentRepository.findByLocationContaining(location);
     }
 
-    //To Create new tournament
+    //to create new tournament
     @PostMapping
     public Tournament createTournament(@RequestBody Tournament tournament) {
         return tournamentRepository.save(tournament);
     }
 
-    // To get all the tournament
+    // to get all the tournament
     @GetMapping
     public List<Tournament> getAllTournaments() {
         return tournamentRepository.findAll();
@@ -73,10 +74,10 @@ public class TournamentController {
             tournament.setParticipatingMembers(tournamentDetails.getParticipatingMembers());
             return tournamentRepository.save(tournament);
         }
-        return null; // Return null or throw exception if not found
+        return null; // return null or throw exception if not found
     }
 
-    // To delete a tournament by its ID
+    // to delete a tournament by its ID
     @DeleteMapping("/{id}")
     public void deleteTournament(@PathVariable Long id) {
         tournamentRepository.deleteById(id);

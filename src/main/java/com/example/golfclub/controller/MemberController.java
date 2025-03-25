@@ -21,19 +21,24 @@ public class MemberController {
         this.memberRepository = memberRepository;
     }
 
-    // Search members by name
+    @GetMapping("/test")
+    public String test() {
+        return "Controller is working!"; // Tested it, this works but everything else is throwing 404
+    }
+
+    // search the members by name
     @GetMapping("/search")
     public List<Member> getMemberByName(@RequestParam String name) {
         return memberRepository.findByNameContaining(name);
     }
 
-    // Add a new member
+    // to add new member
     @PostMapping
     public Member addMember(@RequestBody Member member) {
         return memberService.saveMember(member);
     }
 
-    // Get all members
+    // get all the members
     @GetMapping
     public List<Member> getAllMembers() {
         return memberService.getAllMembers();
