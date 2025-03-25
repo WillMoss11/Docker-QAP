@@ -32,7 +32,7 @@
 
 ###
 
-<p align="left">1. Make sure your MySQL is running locally<br>2. Update docker-compose.yml database settings<br>3. Run with Maven:</p>
+<p align="left">1. Make sure your MySQL is running locally<br>2. Update the application-properties.yml database settings with your own<br>3. Run with Maven:</p>
 
 ###
 
