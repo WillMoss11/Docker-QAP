@@ -17,4 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class MemberControllerTest {
+
+    @Mock
+    private MemberRepository memberRepository;
+
+    @InjectMocks
+    private MemberController memberController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
 }
